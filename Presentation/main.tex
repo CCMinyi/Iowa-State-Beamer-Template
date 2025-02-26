@@ -1,0 +1,165 @@
+\documentclass{beamer}
+
+\usetheme{CambridgeUS}
+\usecolortheme{beaver}
+
+\usefonttheme[onlymath]{serif} % Uncomment for article style math
+
+\setlength{\unitlength}{\textwidth}  % Measure in textwidths
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
+\usepackage{tcolorbox} % For custom theorem box styling
+\usepackage{mathtools}
+\usepackage{bbm}
+% Define ISU red color
+\definecolor{ISUCardinal}{RGB}{144, 26, 30}
+
+% Customize TOC colors
+\setbeamertemplate{section in toc}{%
+  {\color{ISUCardinal!70!black}\inserttocsectionnumber.}~\inserttocsection}
+\setbeamercolor{subsection in toc}{bg=white, fg=black} % Set subsection text color to black
+\setbeamertemplate{subsection in toc}{%
+  \hspace{1.2em}{\color{ISUCardinal}\rule[0.3ex]{3pt}{3pt}}~\inserttocsubsection\par}
+
+% Customize section title format in frames
+\setbeamercolor{section title}{fg=ISUCardinal!80!black}
+\setbeamertemplate{section page}{
+    \begin{centering}
+        \vspace{2cm}
+        \begin{beamercolorbox}[sep=12pt,center,shadow=true,rounded=true]{section title}
+            \usebeamerfont{section title}\insertsection\par
+        \end{beamercolorbox}
+    \end{centering}
+}
+
+% Custom format for frame titles
+\setbeamercolor{frametitle}{fg=ISUCardinal!80!black, bg=white}
+\setbeamertemplate{frametitle}{
+    \vspace{0.3cm}
+    \begin{beamercolorbox}[wd=\textwidth,ht=1.5em,dp=1.5ex,center]{frametitle}
+        \usebeamerfont{frametitle} \insertframetitle
+    \end{beamercolorbox}
+}
+
+% Customize bullet points in itemize
+\setbeamertemplate{itemize items}[circle]
+\setbeamercolor{item}{fg=ISUCardinal}
+\setbeamercolor{item projected}{fg=ISUCardinal}
+\setbeamertemplate{itemize subitem}{\color{ISUCardinal}\scriptsize\raise1pt\hbox{$\blacktriangleright$}}
+\setbeamertemplate{itemize subsubitem}{\color{ISUCardinal}\tiny\raise1pt\hbox{$\blacktriangleright$}}
+
+% Define theorem box style with tcolorbox, allowing for a citation argument
+\tcbuselibrary{skins, breakable}
+\newtcolorbox[auto counter, number within=section]{mydefinition}[2][]{%
+    colback=white, % Background color inside the box
+    colframe=ISUCardinal, % Border color
+    coltitle=white, % Title text color
+    colbacktitle=ISUCardinal, % Title background color
+    fonttitle=\bfseries, % Title font
+    title=\hspace{2mm} Definition~\thetcbcounter~#1, % Add space before "Definition" to avoid clipping
+    breakable, % Allows the box to break across pages
+    enhanced,
+    boxrule=0.5mm, % Thickness of the box border
+    left=2mm, right=2mm, top=2mm, bottom=2mm, % Increased padding inside the box
+    attach boxed title to top left={yshift=-1mm, xshift=0mm}, % Center title without extra shift
+    boxed title style={size=small, colframe=ISUCardinal, boxrule=0pt},
+    before upper={\hspace{3mm}}, % Extra space inside the box before the content starts
+}
+
+
+% Define theorem box style with tcolorbox, allowing for a citation argument
+\tcbuselibrary{skins, breakable}
+\newtcolorbox[auto counter, number within=section]{mytheorem}[2][]{%
+    colback=white, % Background color inside the box
+    colframe=ISUCardinal, % Border color
+    coltitle=white, % Title text color
+    colbacktitle=ISUCardinal, % Title background color
+    fonttitle=\bfseries, % Title font
+    title=Theorem~\thetcbcounter~#1, % Title format with optional citation provided directly
+    breakable, % Allows the box to break across pages
+    enhanced,
+    boxrule=0.5mm, % Thickness of the box border
+    left=1mm, right=1mm, top=1mm, bottom=1mm, % Padding inside the box
+    attach boxed title to top left={yshift=-2mm, xshift=2mm}, % Adjust title position
+    boxed title style={size=small, colframe=ISUCardinal, boxrule=0pt},
+}
+
+% Define proof box style with tcolorbox
+\newtcolorbox{myproof}[1][]{%
+    colback=white, % Background color inside the box
+    colframe=black, % Border color
+    fonttitle=\bfseries, % Title font
+    title=Proof, % Title format
+    breakable, % Allows the box to break across pages
+    enhanced,
+    boxrule=0.4mm, % Thickness of the box border
+    left=1mm, right=1mm, top=1mm, bottom=1mm, % Padding inside the box
+    attach boxed title to top left={yshift=-2mm, xshift=2mm}, % Adjust title position
+    boxed title style={size=small, colframe=black, boxrule=0pt},
+}
+% New command
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\probability}{\mathbb{P}}
+\newcommand{\iid}{\overset{\mathrm{iid}}{\sim}}
+\newcommand{\indicatefunction}{\mathbbm{1}}
+
+% Title and author information
+\author{Min-Yi Chen}
+\institute[ISU]{Department of Statistics}
+\title{Title}
+\date{\today}
+
+\begin{document}
+
+% Title slide
+\frame{\maketitle}
+
+% Outline Slide
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% SECTION 1: Introduction
+\section{Introduction}
+\begin{frame}{Introduction}
+    \begin{itemize}
+        \item Overview of XXXX.
+        \item Motivation for XXXXX.
+    \end{itemize}
+\end{frame}
+
+% SECTION 2: Theoretical Background
+\section{Theoretical Background}
+
+% Theorem Example with Citation Frame
+\begin{frame}{Theorem Example}
+    \begin{mytheorem}[\text{(Foster, Kakade, Qian, Rakhlin '21)}]
+        % Theorem content goes here
+        \textbf{Upper bound:} There exists an algorithm ("Estimation-to-Decisions") that obtains
+        \[
+        \mathbb{E}[\text{Reg}(T)] \leq \min_{\gamma > 0} \left\{ \max_{M \in \mathcal{M}} \text{dec}_\gamma^0(\mathcal{M}, \overline{M}) \cdot T + \gamma \cdot \text{Esthel}(T) \right\}.
+        \]
+        
+        \textbf{Lower bound:} Any algorithm must have
+        \[
+        \mathbb{E}[\text{Reg}(T)] \geq \min_{\gamma > 0} \left\{ \max_{M \in \mathcal{M}} \text{dec}_\gamma^0(\mathcal{M}', \overline{M}) \cdot T + \gamma \right\},
+        \]
+        where \(\mathcal{M}'(\overline{M}) = \{ M \subseteq \mathcal{M} \mid \|f^M - f^{\overline{M}}\|_\infty \leq \frac{\gamma}{T}\}\).
+    \end{mytheorem}
+\end{frame}
+
+% Another Theorem with Proof and Citation
+\begin{frame}{Another Theorem with Proof}
+    % Add a label as the second argument if you want a citation next to the theorem title
+    \begin{mytheorem}[ (Example)]
+        Statement here
+    \end{mytheorem}
+
+    \begin{myproof}
+        Proof here.
+    \end{myproof}
+\end{frame}
+
+
+
+\end{document}
